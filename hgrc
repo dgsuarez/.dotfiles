@@ -1,4 +1,3 @@
-[ui]
 %include .hgrc_user
 
 [extensions]
