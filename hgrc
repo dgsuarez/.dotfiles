@@ -1,0 +1,9 @@
+[ui]
+%include .hgrc_user
+
+[extensions]
+color=
+fetch=
+hgk=
+graphlog=
+rebase=
