@@ -15,9 +15,9 @@ pending_hg(){
   for dot_hg in `find -maxdepth 2 -mindepth 2 -type d -name ".hg" -exec echo "$PWD/{}/.." \;`
   do
     cd "$dot_hg" 
-    hg out > /dev/null 2>1
+    hg out > /dev/null 2>&1
     h_out=$? 
-    hg in > /dev/null 2>1 
+    hg in > /dev/null 2>&1 
     h_in=$? 
     tput setaf 2
     (test $h_out == 0 || test $h_in == 0) && tput setaf 1
