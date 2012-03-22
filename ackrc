@@ -1,2 +1,5 @@
 --type-set
 scss=.sass,.scss
+
+--type-set
+prawn=.prawn
