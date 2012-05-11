@@ -1,5 +1,4 @@
---type-set
-scss=.sass,.scss
-
---type-set
-prawn=.prawn
+--type-set=scss=.sass,.scss
+--type-set=sass=.sass,.scss
+--type-set=prawn=.prawn
+--ignore-dir="vendor"
