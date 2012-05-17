@@ -2,6 +2,7 @@ alias brake='bundle exec rake'
 alias bspec='bundle exec spec'
 alias bexec='bundle exec'
 alias bpspec='bundle exec rake parallel:spec[2]'
+alias pspec='bpspec'
 
 v(){
   if [ -z "$1" ]; then
