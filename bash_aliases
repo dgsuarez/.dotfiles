@@ -32,3 +32,33 @@ pending_hg(){
   done
   )
 }
+
+dev_services(){
+  upstart_services="mysql"
+  rd_services="memcached redis-server"
+  if [ "$1" == "on" ]; then
+    for s in $upstart_services
+    do
+      sudo service $s start
+      sudo rm /etc/init/$s.override
+    done
+    for s in $rd_services
+    do
+      sudo service $s start
+      sudo update-rc.d $s enable
+    done
+  elif [ "$1" == "off" ]; then
+    for s in $upstart_services
+    do
+      sudo service $s stop
+      echo "manual" | sudo tee /etc/init/$s.override > /dev/null
+    done
+    for s in $rd_services
+    do
+      sudo service $s stop
+      sudo update-rc.d $s disable
+    done
+  else
+    echo "usage dev_mode on|off"
+  fi
+}
