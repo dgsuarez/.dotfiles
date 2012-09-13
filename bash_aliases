@@ -1,7 +1,15 @@
 alias brake='bundle exec rake'
-alias bspec='bundle exec spec'
 alias bexec='bundle exec'
 alias bpspec='bundle exec rake parallel:spec[2]'
+alias pspec='bpspec'
+
+bspec(){
+  if [ -z "$1" ]; then
+    bundle exec spec spec
+  else
+    bundle exec spec $@
+  fi
+}
 
 v(){
   if [ -z "$1" ]; then
@@ -61,4 +69,9 @@ dev_services(){
   else
     echo "usage dev_mode on|off"
   fi
+}
+
+function serve {
+  port="${1:-3000}"
+  ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
