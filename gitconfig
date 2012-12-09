@@ -1,0 +1,9 @@
+[user]
+	name = Diego Guerra
+	email = diego.guerra.suarez@gmail.com
+[alias]
+	serve = daemon --reuseaddr --base-path=. --export-all --verbose
+[color]
+	ui = true
+[core]
+	pager = 
