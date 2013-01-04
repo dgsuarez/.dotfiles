@@ -2,4 +2,5 @@
 --type-set=sass=.sass,.scss
 --type-set=less=.less
 --type-set=prawn=.prawn
+--type-set=handlebars=.handlebars
 --ignore-dir="vendor"
