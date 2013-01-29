@@ -3,4 +3,5 @@
 --type-set=less=.less
 --type-set=prawn=.prawn
 --type-set=handlebars=.handlebars
+--type-set=rabl=.rabl
 --ignore-dir="vendor"
