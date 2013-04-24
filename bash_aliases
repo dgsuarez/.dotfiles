@@ -1,6 +1,6 @@
 alias brake='bundle exec rake'
 alias bexec='bundle exec'
-alias bpspec='bundle exec rake parallel:spec[2]'
+alias bpspec='bundle exec rake parallel:spec[$((`nproc`-1))]'
 alias pspec='bpspec'
 alias bcap='bexec cap'
 
