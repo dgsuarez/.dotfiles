@@ -1,8 +1,5 @@
 %include .hgrc_user
 
-[diff]
-git=True
-
 [extensions]
 color=
 fetch=
