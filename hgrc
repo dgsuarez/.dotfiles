@@ -6,3 +6,4 @@ fetch=
 hgk=
 graphlog=
 rebase=
+progress=
