@@ -12,6 +12,14 @@ bspec(){
   fi
 }
 
+brspec(){
+  if [ -z "$1" ]; then
+    bundle exec rspec spec
+  else
+    bundle exec rspec $@
+  fi
+}
+
 v(){
   if [ -z "$1" ]; then
     gvim
