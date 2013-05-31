@@ -83,3 +83,10 @@ dev_services(){
 function serve {
   python -m SimpleHTTPServer
 }
+
+hg_prompt(){
+  echo -en "\e[0;33m"
+  hg log -r . --template ' (hg {branch}:{bookmarks}) ' 2> /dev/null | sed 's/\:)/)/'
+  echo -en "\e[1;00m"
+}
+
