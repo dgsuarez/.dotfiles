@@ -22,9 +22,9 @@ brspec(){
 
 v(){
   if [ -z "$1" ]; then
-    gvim
+    vim
   else
-    gvim --remote-tab-silent $@ 
+    vim --remote-tab-silent $@ 
   fi
 }
 
