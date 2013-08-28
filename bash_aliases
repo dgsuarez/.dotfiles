@@ -85,8 +85,8 @@ function serve {
 }
 
 hg_prompt(){
-  echo -en "\e[0;33m"
+  tput setaf 3
   hg log -r . --template ' (hg {branch}:{bookmarks}) ' 2> /dev/null | sed 's/\:)/)/'
-  echo -en "\e[1;00m"
+  tput sgr0
 }
 
