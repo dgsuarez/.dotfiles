@@ -8,3 +8,12 @@ graphlog=
 rebase=
 progress=
 mq=
+purge=
+shelve=
+
+
+[tortoisehg]
+editor = 
+
+[ui]
+ssh = ssh -C
