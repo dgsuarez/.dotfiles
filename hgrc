@@ -10,10 +10,31 @@ progress=
 mq=
 purge=
 shelve=
-
+hgext.extdiff =
 
 [tortoisehg]
-editor = 
 
 [ui]
 ssh = ssh -C
+
+[extensions]
+hgext.extdiff=
+
+[extdiff]
+cmd.kdiff = kdiff3
+
+
+[annotate]
+ignorews = True
+ignorewsamount = True
+ignoreblanklines = True
+
+[diff]
+ignorews = True
+ignorewsamount = True
+ignoreblanklines = True
+
+[alias]
+codereview = kdiff -r "(::$1 ^ 1) - ::main"
+crlog = log -r "(::$1 ^ 1) - ::main"
+crdiff = diff -r "(::$1 ^ 1) - ::main"
