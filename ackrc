@@ -4,4 +4,6 @@
 --type-set=prawn=.prawn
 --type-set=handlebars=.handlebars
 --type-set=rabl=.rabl
+--type-set=clojure=.clj,.cljs
+
 --ignore-dir="vendor"

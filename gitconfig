@@ -7,3 +7,4 @@
 	ui = true
 [core]
 	pager = 
+	excludesfile = /home/diego/.gitignore_global
