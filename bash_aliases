@@ -1,10 +1,12 @@
 alias brake='bundle exec rake'
 alias bexec='bundle exec'
-alias bpspec='bundle exec rake parallel:spec[$((`nproc`-1))]'
-alias pspec='bpspec'
 alias bcap='bexec cap'
 alias n2z="tr '\n' '\0'"
 alias nosubs="odd-one-out mkv,avi,mp4 srt,en.srt,es.srt"
+
+pspec(){
+  bundle exec rake parallel:spec[$@]
+}
 
 bspec(){
   if [ -z "$1" ]; then
