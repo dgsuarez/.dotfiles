@@ -8,7 +8,7 @@ pspec(){
 }
 
 hg(){
-  if [[ "$1" =~ up* ]] && [ -z "$2" ]; then
+  if [[ "$1" == up* ]] && [ -z "$2" ]; then
     echo "$1 a onde mangurrian!"
   else
     /usr/bin/env hg $@
