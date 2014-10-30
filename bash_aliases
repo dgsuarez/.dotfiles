@@ -8,6 +8,14 @@ pspec(){
   bundle exec rake parallel:spec[$@]
 }
 
+hg(){
+  if [[ "$1" =~ up* ]] && [ -z "$2" ]; then
+    echo "$1 a onde ho!"
+  else
+    /usr/bin/env hg $@
+  fi
+}
+
 bspec(){
   if [ -z "$1" ]; then
     bundle exec spec spec
