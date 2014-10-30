@@ -10,7 +10,7 @@ pspec(){
 
 hg(){
   if [[ "$1" =~ up* ]] && [ -z "$2" ]; then
-    echo "$1 a onde ho!"
+    echo "$1 a onde mangurrian!"
   else
     /usr/bin/env hg $@
   fi
@@ -97,6 +97,6 @@ function serve {
 }
 
 hg_prompt(){
-  hg log -r . --template ' (hg {branch}:{bookmarks}) ' 2> /dev/null | sed 's/\:)/)/'
+  /usr/bin/env hg log -r . --template ' (hg {branch}:{bookmarks}) ' 2> /dev/null | sed 's/\:)/)/'
 }
 
