@@ -11,7 +11,7 @@ hg(){
   if [[ "$1" == up* ]] && [ -z "$2" ]; then
     echo "$1 a onde mangurrian!"
   else
-    /usr/bin/env hg $@
+    /usr/bin/env hg "$@"
   fi
 }
 
