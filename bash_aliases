@@ -2,6 +2,7 @@ alias brake='bundle exec rake'
 alias bexec='bundle exec'
 alias bcap='bexec cap'
 alias n2z="tr '\n' '\0'"
+alias reown='sudo chown -R $USER:$USER'
 
 pspec(){
   bundle exec rake parallel:spec[$@]
