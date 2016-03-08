@@ -9,7 +9,8 @@ git_prompt(){
 }
 
 ps1_chcolor(){
-  echo '\[$(tput setaf '$1')\]'
+  let "color=$1 % $(tput colors)"
+  echo '\[$(tput setaf '$color % ')\]'
 }
 
 ps1_resetcolor(){
