@@ -20,3 +20,4 @@ source ~/.bashconf/prompt.bash
 source ~/.bashconf/aliases.bash
 source ~/.bashconf/ruby.bash
 
+source ~/.capsasesc.sh
