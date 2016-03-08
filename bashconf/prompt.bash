@@ -8,4 +8,16 @@ git_prompt(){
   hash __git_ps1 &>/dev/null && __git_ps1 ' (git %s) '
 }
 
-PS1='[$(date +"%T")] \u@\h:\w\[$(tput setaf 3)\]$(hg_prompt)$(git_prompt)\[$(tput sgr0)\]\$ '
+ps1_chcolor(){
+  echo '\[$(tput setaf '$1')\]'
+}
+
+ps1_resetcolor(){
+  echo '\[$(tput sgr0)\]'
+}
+
+PS1=''
+PS1=$PS1$(ps1_chcolor 13)'$(date +"%T") '$(ps1_resetcolor)
+PS1=$PS1'\u@\h:\w'
+PS1=$PS1$(ps1_chcolor 3)'$(hg_prompt)$(git_prompt)'$(ps1_resetcolor)
+PS1=$PS1'\$ '
