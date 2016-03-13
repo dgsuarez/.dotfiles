@@ -1,11 +1,9 @@
 hg_prompt(){
-  hash hg &> /dev/null && /usr/bin/env hg prompt " (hg {branch}{:{bookmark}}{status}) " 2> /dev/null
+  hash hg &> /dev/null && /usr/bin/env hg prompt " (hg {branch}{:{bookmark}}{ {status}}) " 2> /dev/null
 }    
 
 git_prompt(){
-  GIT_PS1_SHOWDIRTYSTATE='y'
-  GIT_PS1_SHOWUNTRACKEDFILES='y'
-  hash __git_ps1 &>/dev/null && __git_ps1 ' (git %s) '
+  hash __git_ps1 &>/dev/null && GIT_PS1_SHOWDIRTYSTATE='y' GIT_PS1_SHOWUNTRACKEDFILES='y'  __git_ps1 ' (git %s) '
 }
 
 ps1_chcolor(){
