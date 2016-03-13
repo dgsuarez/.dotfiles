@@ -1,5 +1,5 @@
 
 if [[ "$COLORTERM" -eq "xfce4-terminal" ]]; then
-  export TERM=xterm-256color
+  export TERM=screen-256color
 fi
 
