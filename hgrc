@@ -20,6 +20,7 @@ ignore = ~/.hgignore
 
 [extensions]
 hgext.extdiff=
+prompt=~/.hg-extensions/prompt.py
 
 [extdiff]
 cmd.kdiff = kdiff3

@@ -1,5 +1,5 @@
 hg_prompt(){
-  hash hg &> /dev/null && /usr/bin/env hg log -r . --template ' (hg {branch}:{bookmarks}) ' 2> /dev/null | sed 's/\:)/)/'
+  hash hg &> /dev/null && /usr/bin/env hg prompt " (hg {branch}{:{bookmark}}{status}) " 2> /dev/null
 }    
 
 git_prompt(){
