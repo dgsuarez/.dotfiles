@@ -1,5 +1,5 @@
 hg_prompt(){
-  hash hg &> /dev/null && /usr/bin/env hg prompt " (hg {branch}{:{bookmark}}{ {status}}) " 2> /dev/null
+  hash hg &> /dev/null && /usr/bin/env hg prompt " (hg {branch}{:{bookmark}}) " 2> /dev/null
 }    
 
 git_prompt(){
