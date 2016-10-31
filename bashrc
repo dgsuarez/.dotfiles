@@ -14,3 +14,6 @@ source ~/.bashconf/dev_env.bash
 source ~/.bashconf/ruby.bash
 
 source ~/.capsasesc.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
