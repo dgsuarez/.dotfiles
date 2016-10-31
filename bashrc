@@ -12,6 +12,10 @@ source ~/.bashconf/prompt.bash
 source ~/.bashconf/aliases.bash
 source ~/.bashconf/dev_env.bash
 source ~/.bashconf/ruby.bash
+if [ -f ~/.bash_local.bash ]; then
+  source ~/.bash_local.bash
+fi
+
 
 source ~/.capsasesc.sh
 
