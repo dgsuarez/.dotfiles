@@ -16,8 +16,7 @@ if [ -f ~/.bash_local.bash ]; then
   source ~/.bash_local.bash
 fi
 
-
-source ~/.capsasesc.sh
+python ~/.dotfiles/caps_as_esc.py
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
