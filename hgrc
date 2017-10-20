@@ -21,6 +21,7 @@ ignore = ~/.hgignore
 [extensions]
 hgext.extdiff=
 prompt=~/.hg-extensions/prompt.py
+flow=~/.hg-extensions/hgflow.py
 
 [extdiff]
 cmd.kdiff = kdiff3
@@ -36,7 +37,3 @@ ignorews = True
 ignorewsamount = True
 ignoreblanklines = True
 
-[alias]
-codereview = kdiff -r "(::$1 ^ 1) - ::main"
-crlog = log -r "(::$1 ^ 1) - ::main"
-crdiff = diff -r "(::$1 ^ 1) - ::main"
