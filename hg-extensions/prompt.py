@@ -14,9 +14,14 @@ import re
 import os
 import subprocess
 from datetime import datetime, timedelta
+from contextlib import closing
 from os import path
 from mercurial import extensions, commands, cmdutil, help
+from mercurial.i18n import _
 from mercurial.node import hex, short
+
+cmdtable = {}
+command = cmdutil.command(cmdtable)
 
 # `revrange' has been moved into module `scmutil' since v1.9.
 try :
@@ -30,16 +35,32 @@ CACHE_TIMEOUT = timedelta(minutes=15)
 
 FILTER_ARG = re.compile(r'\|.+\((.*)\)')
 
+
 def _cache_remote(repo, kind):
     cache = path.join(repo.root, CACHE_PATH, kind)
     c_tmp = cache + '.temp'
 
-    # This is kind of a hack and I feel a little bit dirty for doing it.
-    IGNORE = open('NUL:','w') if subprocess.mswindows else open('/dev/null','w')
+    popenargs = ['hg', kind, '--quiet']
+    remote_path = repo.ui.config('prompt', 'remote')
+    if remote_path is not None:
+        popenargs.append(remote_path)
 
-    subprocess.call(['hg', kind, '--quiet'], stdout=file(c_tmp, 'w'), stderr=IGNORE)
+    null_path = 'NUL:' if subprocess.mswindows else '/dev/null'
+    with open(null_path, 'w') as null_fp:
+        with open(c_tmp, 'w') as stdout_fp:
+            exit_code = subprocess.call(popenargs, stdout=stdout_fp, stderr=null_fp)
+
+    if exit_code not in (0, 1): # (changesets_found, changesets_not_found)
+        msg = "hg-prompt error: "
+        if remote_path: # Failure likely due to bad remote. Is 255 a valid check?
+            msg += "Can't access remote '%s'" % remote_path
+        else:
+            msg += "Error attempting 'hg %s'" % kind
+        print msg
+
     os.rename(c_tmp, cache)
     return
+
 
 def _with_groups(groups, out):
     out_groups = [groups[0]] + [groups[-1]]
@@ -72,6 +93,11 @@ def _get_filter_arg(f):
     else:
         return None
 
+@command('prompt',
+         [('', 'angle-brackets', None, 'use angle brackets (<>) for keywords'),
+          ('', 'cache-incoming', None, 'used internally by hg-prompt'),
+          ('', 'cache-outgoing', None, 'used internally by hg-prompt')],
+         'hg prompt STRING')
 def prompt(ui, repo, fs='', **opts):
     '''get repository information for use in a shell prompt
 
@@ -98,6 +124,13 @@ def prompt(ui, repo, fs='', **opts):
         currently at my-bookmark
 
     See 'hg help prompt-keywords' for a list of available keywords.
+
+    The format string may also be defined in an hgrc file::
+
+        [prompt]
+        template = {currently at {bookmark}}
+
+    This is used when no format string is passed on the command line.
     '''
 
     def _basename(m):
@@ -276,10 +309,12 @@ def prompt(ui, repo, fs='', **opts):
             if cache_exists:
                 with open(cache) as c:
                     count = len(c.readlines())
-                    if g[1]:
-                        return _with_groups(g, str(count)) if count else ''
+                    if g[1] and count > 0:
+                        return _with_groups(g, str(count))
+                    elif g[2]:
+                        return _with_groups(g, '0') if not count else ''
                     else:
-                        return _with_groups(g, '') if count else ''
+                        return _with_groups(g, '')
             else:
                 return ''
         return _r
@@ -362,8 +397,7 @@ def prompt(ui, repo, fs='', **opts):
                 tip = head
                 break
 
-        return _with_groups(m.groups(), '^') if current_rev != repo[tip] else ''
-
+        return _with_groups(m.groups(), '^') if current_rev.children() else ''
 
     if opts.get("angle_brackets"):
         tag_start = r'\<([^><]*?\<)?'
@@ -419,8 +453,14 @@ def prompt(ui, repo, fs='', **opts):
             ')*': _tip,
         'update': _update,
 
-        'incoming(\|count)?': _remote('incoming'),
-        'outgoing(\|count)?': _remote('outgoing'),
+        'incoming(?:'
+            '(\|count)'
+            '|(\|zero)'
+            ')*': _remote('incoming'),
+        'outgoing(?:'
+            '(\|count)'
+            '|(\|zero)'
+            ')*': _remote('outgoing')
     }
 
     if opts.get("cache_incoming"):
@@ -428,6 +468,9 @@ def prompt(ui, repo, fs='', **opts):
 
     if opts.get("cache_outgoing"):
         _cache_remote(repo, 'outgoing')
+
+    if not fs:
+        fs = repo.ui.config("prompt", "template", "")
 
     for tag, repl in patterns.items():
         fs = re.sub(tag_start + tag + tag_end, repl, fs)
@@ -457,18 +500,9 @@ def uisetup(ui):
     except KeyError:
         pass
 
-cmdtable = {
-    "prompt":
-    (prompt, [
-        ('', 'angle-brackets', None, 'use angle brackets (<>) for keywords'),
-        ('', 'cache-incoming', None, 'used internally by hg-prompt'),
-        ('', 'cache-outgoing', None, 'used internally by hg-prompt'),
-    ],
-    'hg prompt STRING')
-}
 help.helptable += (
-    (['prompt-keywords', 'prompt-keywords'], ('Keywords supported by hg-prompt'),
-     (r'''hg-prompt currently supports a number of keywords.
+    (['prompt-keywords'], _('Keywords supported by hg-prompt'),
+     lambda _: r'''hg-prompt currently supports a number of keywords.
 
 Some keywords support filters.  Filters can be chained when it makes
 sense to do so.  When in doubt, try it!
@@ -508,6 +542,8 @@ incoming
 
      |count
          Display the number of incoming changesets (if greater than 0).
+     |zero
+         Display 0 if there are no incoming changesets.
 
 node
      Display the (full) changeset hash of the current parent.
@@ -531,6 +567,8 @@ outgoing
 
      |count
          Display the number of outgoing changesets (if greater than 0).
+     |zero
+         Display 0 if there are no incoming changesets.
 
 patch
      Display the topmost currently-applied patch (requires the mq
@@ -647,5 +685,5 @@ update
      Display `^` if the current parent is not the tip of the current branch,
      otherwise nothing.  In effect, this lets you see if running `hg update`
      would do something.
-''')),
+'''),
 )
