@@ -16,7 +16,9 @@ if [ -f ~/.bash_local.bash ]; then
   source ~/.bash_local.bash
 fi
 
-python ~/.dotfiles/caps_as_esc.py
+if [[ $(uname -a | grep -i linux) ]]; then
+  python ~/.dotfiles/caps_as_esc.py
+fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
