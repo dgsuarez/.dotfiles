@@ -12,10 +12,12 @@ hg(){
 }
 
 codeshot(){
-pygmentize -O full -f html $2 |
-  wkhtmltoimage -q --minimum-font-size $1 -f png - /dev/stdout |
-  convert png:- -trim png:- |
-  xclip -selection clipboard -t image/png
+  min_size=${2:-32}
+  style=${3:-trac}
+  pygmentize -O full,style=$style -f html $1 |
+    wkhtmltoimage -q --minimum-font-size $min_size -f png - /dev/stdout |
+    convert png:- -trim png:- |
+    xclip -selection clipboard -t image/png
 }
 
 if [ -x /usr/bin/dircolors ]; then
