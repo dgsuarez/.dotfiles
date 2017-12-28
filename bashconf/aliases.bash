@@ -11,6 +11,13 @@ hg(){
   fi
 }
 
+codeshot(){
+pygmentize -O full -f html $2 |
+  wkhtmltoimage -q --minimum-font-size $1 -f png - /dev/stdout |
+  convert png:- -trim png:- |
+  xclip -selection clipboard -t image/png
+}
+
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
