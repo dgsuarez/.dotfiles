@@ -11,14 +11,20 @@ hg(){
   fi
 }
 
-codeshot(){
-  min_size=${2:-32}
-  style=${3:-trac}
-  pygmentize -O full,style=$style -f html $1 |
-    wkhtmltoimage -q --minimum-font-size $min_size -f png - /dev/stdout |
+htmlshot(){
+  min_size=${1:-32}
+  wkhtmltoimage -q --minimum-font-size $min_size -f png - /dev/stdout |
     convert png:- -trim png:- |
     xclip -selection clipboard -t image/png
 }
+
+codeshot(){
+  min_size=${2:-32}
+  style=${3:-trac}
+  pygmentize -O full,style=$style -f html $1 | htmlshot $min_size
+}
+
+alias htmlizecode='pygmentize -O full,style=trac -f html'
 
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
