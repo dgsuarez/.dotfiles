@@ -1,3 +1,6 @@
+if [ -d "/usr/local/heroku" ]; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
 
 if [ -d "$HOME/.arcanist" ]; then
   export PATH="$PATH:$HOME/.arcanist/arcanist/bin"

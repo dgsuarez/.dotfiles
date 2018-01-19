@@ -20,5 +20,3 @@ if [[ $(uname -a | grep -i linux) ]]; then
   python ~/.dotfiles/caps_as_esc.py
 fi
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
