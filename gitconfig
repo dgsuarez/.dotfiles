@@ -2,9 +2,16 @@
 	name = Diego Guerra
 	email = diego.guerra.suarez@gmail.com
 [alias]
+	l = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	gl = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
+	s = status -s
+        co = checkout
+        ci = commit
+        o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
+        in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
 [color]
 	ui = true
 [core]
-	pager = 
+	pager =
 	excludesfile = /home/diego/.gitignore_global
