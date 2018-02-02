@@ -17,6 +17,7 @@ hgext.extdiff =
 [ui]
 ssh = ssh -C
 ignore = ~/.hgignore
+paginate = never
 
 [extensions]
 hgext.extdiff=
