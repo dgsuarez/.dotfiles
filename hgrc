@@ -12,6 +12,12 @@ purge=
 shelve=
 hgext.extdiff =
 
+[color]
+custom.rev = red
+custom.branch = yellow
+custom.date = green
+custom.author = blue bold
+
 [tortoisehg]
 
 [ui]
@@ -27,6 +33,8 @@ flow=~/.hg-extensions/hgflow.py
 [extdiff]
 cmd.kdiff = kdiff3
 
+[alias]
+slog = log --template "{label('custom.rev', node|short)} - ({label('custom.branch', tags)}{if(tags, ' - ')}{label('custom.branch', branch)}) {desc|strip|firstline} ({label('custom.date', date|age)}) <{label('custom.author' , author|person)}>\n"
 
 [annotate]
 ignorews = True
