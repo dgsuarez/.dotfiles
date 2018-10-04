@@ -3,14 +3,6 @@ alias reown='sudo chown -R $USER:$USER'
 alias serve='python -m SimpleHTTPServer'
 alias v=vi
 
-hg(){
-  if [[ "$1" == up* ]] && [ -z "$2" ]; then
-    echo "$1 a onde mangurrian!"
-  else
-    /usr/bin/env hg "$@"
-  fi
-}
-
 htmlshot(){
   min_size=${1:-32}
   wkhtmltoimage -q --minimum-font-size $min_size -f png - /dev/stdout |
