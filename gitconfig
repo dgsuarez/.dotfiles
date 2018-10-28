@@ -15,3 +15,13 @@
 [core]
 	pager =
 	excludesfile = ~/.gitignore_global
+	editor = nvim
+[pull]
+	rebase = true
+[rebase]
+	autosquash = true
+[push]
+	default = simple
+
+[includeIf "gitdir:~/toptal/**"]
+        path=~/toptal/gitconfig
