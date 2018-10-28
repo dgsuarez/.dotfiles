@@ -16,4 +16,5 @@ if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
+eval "$(direnv hook bash)"
 
