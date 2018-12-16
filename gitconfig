@@ -25,3 +25,10 @@
 
 [includeIf "gitdir:~/toptal/**"]
         path=~/toptal/gitconfig
+[merge]
+	tool = diffconflicts
+[mergetool "diffconflicts"]
+	cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true
+[mergetool]
+	keepBackup = false
