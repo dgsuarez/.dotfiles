@@ -7,3 +7,4 @@ Session.vim
 .byebug_history
 tags
 .DS_store
+.ignore
