@@ -16,6 +16,10 @@ codeshot(){
   pygmentize -O full,style=$style -f html $1 | htmlshot $min_size
 }
 
+killport(){
+  sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}'
+}
+
 alias htmlizecode='pygmentize -O full,style=trac -f html'
 
 if [ -x /usr/bin/dircolors ]; then
