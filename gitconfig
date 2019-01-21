@@ -10,6 +10,8 @@
         o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
         in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
+        prunelocal = !sh -c 'git branch --merged | grep -v "^*" | xargs -r git branch -d'
+
 [color]
 	ui = true
 [core]
