@@ -17,7 +17,7 @@ codeshot(){
 }
 
 killport(){
-  sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}'
+  sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}' | xargs -r kill
 }
 
 alias htmlizecode='pygmentize -O full,style=trac -f html'
