@@ -3,17 +3,10 @@ alias reown='sudo chown -R $USER:$USER'
 alias serve='python -m SimpleHTTPServer'
 alias v=vi
 
-htmlshot(){
-  min_size=${1:-32}
-  wkhtmltoimage -q --minimum-font-size $min_size -f png - /dev/stdout |
-    convert png:- -trim png:- |
-    xclip -selection clipboard -t image/png
-}
-
 codeshot(){
   min_size=${2:-32}
   style=${3:-trac}
-  pygmentize -O full,style=$style -f html $1 | htmlshot $min_size
+  pygmentize -O full,style=trac,font_size=32,line_numbers=False -f png $1 | xclip -selection clipboard -t image/png
 }
 
 killport(){
