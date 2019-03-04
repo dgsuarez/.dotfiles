@@ -6,11 +6,16 @@ alias v=vi
 codeshot(){
   min_size=${2:-32}
   style=${3:-trac}
-  pygmentize -O full,style=trac,font_size=32,line_numbers=False -f png $1 | xclip -selection clipboard -t image/png
+  pygmentize -O full,style="$style",font_size="$min_size",line_numbers=False -f png $1 | xclip -selection clipboard -t image/png
 }
 
 killport(){
   sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}' | xargs -r kill
+}
+
+muxw(){
+  name=`basename "$PWD"`
+  tmuxinator s work -n "$name"
 }
 
 alias htmlizecode='pygmentize -O full,style=trac -f html'
