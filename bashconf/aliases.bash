@@ -13,9 +13,17 @@ killport(){
   sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}' | xargs -r kill
 }
 
-muxw(){
-  name=`basename "$PWD"`
-  tmuxinator s work -n "$name"
+mux(){
+  rbenv_version=`hash rbenv 2>/dev/null && rbenv global`
+
+  if [ -f .tmuxinator.yml ]; then
+    RBENV_VERSION="$rbenv_version" tmuxinator local
+  else
+    session_name=`basename "$PWD"`
+    project=`[[ -f Procfile ]] && echo procfile || echo nvim`
+
+    RBENV_VERSION="$rbenv_version" tmuxinator s "$project" -n "$session_name"
+  fi
 }
 
 alias htmlizecode='pygmentize -O full,style=trac -f html'

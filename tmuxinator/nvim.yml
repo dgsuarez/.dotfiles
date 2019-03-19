@@ -1,0 +1,6 @@
+name: work
+root: .
+windows:
+  - nvim: nvim
+  - bash:
+

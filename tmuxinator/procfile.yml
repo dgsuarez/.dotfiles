@@ -1,0 +1,7 @@
+name: work
+root: .
+windows:
+  - nvim: nvim
+  - servers: overmind start
+  - bash:
+
