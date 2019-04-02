@@ -12,6 +12,7 @@
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
         prunelocal = !sh -c 'git branch --merged | grep -v "^*" | xargs -r git branch -d'
         hiff = diff HEAD
+        publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 
 [color]
 	ui = true
