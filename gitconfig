@@ -13,7 +13,7 @@
         prunelocal = !sh -c 'git branch --merged | grep -v "^*" | xargs -r git branch -d'
         hiff = diff HEAD
         publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-        branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | uniq | tac"
+        branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | tac | awk '!x[$0]++'"
         last = !git branch-history | head
 
 [color]
