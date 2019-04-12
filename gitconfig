@@ -15,7 +15,7 @@
         publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
         branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | tac | awk '!x[$0]++'"
         plain-branches = for-each-ref --format='%(refname:short)' refs/heads/*
-        last = "!bash -c 'grep --color=never -Fx -f <(git plain-branches) <(git branch-history | head -n3)'"
+        last = "!bash -c 'grep --color=never -Fx -f <(git plain-branches) <(git branch-history)' | head"
 
 [color]
 	ui = true
