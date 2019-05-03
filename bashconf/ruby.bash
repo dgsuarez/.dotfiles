@@ -21,3 +21,10 @@ brspec(){
   fi
 }
 
+rails(){
+  if [ -f bin/spring ]; then
+    bin/spring rails "$@"
+  else
+    bundle exec rails "$@"
+  fi
+}
