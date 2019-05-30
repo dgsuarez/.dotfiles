@@ -1,7 +1,7 @@
 alias n2z="tr '\n' '\0'"
 alias reown='sudo chown -R $USER:$USER'
 alias serve='python -m SimpleHTTPServer'
-alias v=vi
+alias v=nvim
 
 codeshot(){
   min_size=${2:-32}
