@@ -10,7 +10,8 @@
         o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
         in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
-        prunelocal = !sh -c 'git branch --merged | grep -v "^*" | xargs -r git branch -d'
+        gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
+        prunelocal = "!git gone | xargs git branch -D"
         hiff = diff HEAD
         publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
         branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | tac | awk '!x[$0]++'"
