@@ -1,6 +1,7 @@
 alias n2z="tr '\n' '\0'"
 alias reown='sudo chown -R $USER:$USER'
 alias serve='python -m SimpleHTTPServer'
+alias fserve='python -m pyftpdlib'
 alias v=nvim
 
 codeshot(){
