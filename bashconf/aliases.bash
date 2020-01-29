@@ -20,7 +20,7 @@ mux(){
   if [ -f .tmuxinator.yml ]; then
     RBENV_VERSION="$rbenv_version" tmuxinator local
   else
-    session_name=`basename "$PWD"`
+    session_name=`basename "$PWD" | sed 's/\./_/g'`
     project=`[[ -f Procfile ]] && echo procfile || echo nvim`
 
     RBENV_VERSION="$rbenv_version" tmuxinator s "$project" -n "$session_name"
