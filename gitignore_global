@@ -6,5 +6,6 @@ Session.vim
 *~
 .byebug_history
 tags
+.notags
 .DS_store
 .ignore
