@@ -3,6 +3,7 @@ alias reown='sudo chown -R $USER:$USER'
 alias serve='python -m SimpleHTTPServer'
 alias fserve='python -m pyftpdlib'
 alias v=nvim
+alias o=xdg-open
 
 codeshot(){
   min_size=${2:-32}
