@@ -1,3 +1,5 @@
+eval "$(direnv hook bash)"
+
 if [ -d "/usr/local/heroku" ]; then
   export PATH="/usr/local/heroku/bin:$PATH"
 fi
@@ -26,6 +28,4 @@ fi
 if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
 fi
-
-eval "$(direnv hook bash)"
 
