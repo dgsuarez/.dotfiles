@@ -9,6 +9,7 @@ if [ -d "$HOME/.arcanist" ]; then
 fi
 
 if [ -d "$HOME/.nvm" ]; then
+  export NPM_TOKEN= # If this is set using direnv for some folder it won't be there at shell start and nvm will raise an error
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
