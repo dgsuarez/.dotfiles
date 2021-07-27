@@ -9,3 +9,5 @@ tags
 .notags
 .DS_store
 .ignore
+tags.lock
+tags.temp
