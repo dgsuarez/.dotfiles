@@ -17,11 +17,13 @@ killport(){
 
 mux(){
   rbenv_version=`hash rbenv 2>/dev/null && rbenv global`
+  session_name=`basename "$PWD" | sed 's/\./_/g'`
+
+  echo -ne "\033]0;${session_name}\007"
 
   if [ -f .tmuxinator.yml ]; then
     RBENV_VERSION="$rbenv_version" tmuxinator local
   else
-    session_name=`basename "$PWD" | sed 's/\./_/g'`
     project=`[[ -f Procfile ]] && echo procfile || echo nvim`
 
     RBENV_VERSION="$rbenv_version" tmuxinator s "$project" -n "$session_name"
