@@ -30,6 +30,11 @@ mux(){
   fi
 }
 
+local_tunnel(){
+  local_port=${3:-"1$2"}
+  autossh -N "$1" -L "$local_port":localhost:"$2"
+}
+
 alias htmlizecode='pygmentize -O full,style=trac -f html'
 
 if [ -x /usr/bin/dircolors ]; then
