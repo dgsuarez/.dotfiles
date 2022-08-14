@@ -4,6 +4,10 @@ if [ -d "/usr/local/heroku" ]; then
   export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
+if [ -d "$HOME/buildkit" ]; then
+  export PATH="$HOME/buildkit/bin:$PATH"
+fi
+
 if [ -d "$HOME/.nvm" ]; then
   export NPM_TOKEN= # If this is set using direnv for some folder it won't be there at shell start and nvm will raise an error
   export NVM_DIR="$HOME/.nvm"
