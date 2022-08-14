@@ -4,7 +4,8 @@ git_prompt(){
 
 ps1_chcolor(){
   let "color=$1 % $(tput colors)"
-  echo '\[$(tput setaf '$color % ')\]'
+
+  echo '\[$(tput setaf '$color')\]'
 }
 
 ps1_resetcolor(){
