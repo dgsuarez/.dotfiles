@@ -15,7 +15,3 @@ if [ -f ~/.bash_local.bash ]; then
   source ~/.bash_local.bash
 fi
 
-if [[ $(uname -a | grep -i linux) ]]; then
-  python ~/.dotfiles/caps_as_esc.py
-fi
-
