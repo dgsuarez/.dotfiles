@@ -46,6 +46,11 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
+
+if [ "$TERM" = "xterm-kitty" ]; then
+  alias ssh="kitty +kitten ssh"
+fi
+
 # some more ls aliases
 alias ll='ls -alhF'
 alias la='ls -A'
