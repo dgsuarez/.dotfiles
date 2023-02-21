@@ -11,3 +11,4 @@ tags
 .ignore
 tags.lock
 tags.temp
+tags.files
