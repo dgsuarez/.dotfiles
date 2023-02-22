@@ -35,6 +35,10 @@ local_tunnel(){
   autossh -N "$1" -L "$local_port":localhost:"$2"
 }
 
+togif() {
+  ffmpeg -i "$1" "$1.gif"
+}
+
 alias htmlizecode='pygmentize -O full,style=trac -f html'
 
 if [ -x /usr/bin/dircolors ]; then
