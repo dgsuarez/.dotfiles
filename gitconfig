@@ -5,20 +5,21 @@
 	l = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	gl = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
 	s = status -s
-        co = checkout
-        ci = commit
-        o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
-        in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
+  co = checkout
+  ci = commit
+  o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
+  in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
-        gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
-        prunelocal = "!git gone | xargs -r git branch -D"
-        pullprune = "!git pull --prune && git prunelocal"
-        pp = "!git pullprune"
-        hiff = diff HEAD
-        publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-        branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | tac | awk '!x[$0]++'"
-        plain-branches = for-each-ref --format='%(refname:short)' refs/heads/*
-        last = "!bash -c 'grep --color=never -Fx -f <(git plain-branches) <(git branch-history)' | head"
+  gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
+  prunelocal = "!git gone | xargs -r git branch -D"
+  pullprune = "!git pull --prune && git prunelocal"
+  pp = "!git pullprune"
+  hiff = diff HEAD
+  publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+  branch-history = "!perl -lne 'print $3 if /git (co|checkout)( -b)? ([^ ]+?)$/ && !/( -- |-D)/' ~/.bash_history | tac | awk '!x[$0]++'"
+  plain-branches = for-each-ref --format='%(refname:short)' refs/heads/*
+  last = "!bash -c 'grep --color=never -Fx -f <(git plain-branches) <(git branch-history)' | head"
+  fzfco = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
 
 [color]
 	ui = true
