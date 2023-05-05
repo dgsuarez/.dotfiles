@@ -1,6 +1,6 @@
 alias n2z="tr '\n' '\0'"
 alias reown='sudo chown -R $USER:$USER'
-alias serve='python -m SimpleHTTPServer'
+alias serve='python -m http.server'
 alias fserve='python -m pyftpdlib -w'
 alias v=nvim
 alias o=xdg-open
