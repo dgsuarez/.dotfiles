@@ -20,6 +20,7 @@
   plain-branches = for-each-ref --format='%(refname:short)' refs/heads/*
   last = "!bash -c 'grep --color=never -Fx -f <(git plain-branches) <(git branch-history)' | head"
   fzfco = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
+	fu = ci -a --fixup=HEAD
 
 [color]
 	ui = true
