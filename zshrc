@@ -25,3 +25,9 @@ source ~/.bashconf/aliases.bash
 source ~/.bashconf/dev_env.bash
 source ~/.bashconf/ruby.bash
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/diego/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/diego/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/diego/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/diego/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
