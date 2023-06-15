@@ -37,7 +37,7 @@
 	default = simple
 
 [includeIf "gitdir:~/toptal/**"]
-        path=~/toptal/gitconfig
+	path=~/toptal/.gitconfig
 [merge]
 	tool = diffconflicts
 [mergetool "diffconflicts"]
