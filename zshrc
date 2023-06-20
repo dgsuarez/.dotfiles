@@ -1,7 +1,7 @@
 # Completion
 autoload -U compinit; compinit
 
-# PROMOT
+# PROMPT
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
 autoload -Uz add-zsh-hook vcs_info
 # Enable substitution in the prompt.
@@ -30,3 +30,15 @@ source ~/.bashconf/ruby.bash
 if [ -f '/Users/diego/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/diego/google-cloud-sdk/path.zsh.inc'; fi
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/diego/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/diego/google-cloud-sdk/completion.zsh.inc'; fi
+
+# FZF
+# Auto-completion
+# ---------------
+if [ -f "/opt/homebrew/opt/fzf/shell/completion.zsh" ]; then
+  [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null;
+fi
+# Key bindings
+# ------------
+if [ -f "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" ]; then
+  source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+fi
