@@ -20,12 +20,6 @@ zstyle ':vcs_info:*' stagedstr ' +'
 zstyle ':vcs_info:git:*' formats       '(%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
 
-source ~/.bashconf/defaults.bash
-source ~/.bashconf/aliases.bash
-source ~/.bashconf/dev_env.bash
-source ~/.bashconf/ruby.bash
-
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/diego/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/diego/google-cloud-sdk/path.zsh.inc'; fi
 # The next line enables shell command completion for gcloud.
@@ -42,3 +36,16 @@ fi
 if [ -f "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" ]; then
   source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 fi
+
+# Shared history
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=${HISTFILE:-$HOME/.zsh_history}
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+source ~/.bashconf/defaults.bash
+source ~/.bashconf/aliases.bash
+source ~/.bashconf/dev_env.bash
+source ~/.bashconf/ruby.bash
