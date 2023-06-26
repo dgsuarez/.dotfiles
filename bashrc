@@ -15,3 +15,5 @@ if [ -f ~/.bash_local.bash ]; then
   source ~/.bash_local.bash
 fi
 
+eval "$(direnv hook bash)"
+
