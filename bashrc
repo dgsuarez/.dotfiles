@@ -4,13 +4,13 @@ case $- in
       *) return;;
 esac
 
+source ~/.commonshconf/defaults.sh
+source ~/.commonshconf/aliases.sh
+source ~/.commonshconf/dev_env.sh
+
 source ~/.bashconf/sensible.bash
 source ~/.bashconf/completion.bash
-source ~/.bashconf/defaults.bash
 source ~/.bashconf/prompt.bash
-source ~/.bashconf/aliases.bash
-source ~/.bashconf/dev_env.bash
-source ~/.bashconf/ruby.bash
 if [ -f ~/.bash_local.bash ]; then
   source ~/.bash_local.bash
 fi
