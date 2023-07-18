@@ -1,5 +1,6 @@
 # Completion
 autoload -U compinit; compinit
+zstyle ':completion:*' special-dirs true
 
 # PROMPT
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
