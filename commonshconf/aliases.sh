@@ -4,6 +4,13 @@ alias serve='python3 -m http.server'
 alias fserve='python -m pyftpdlib -w'
 alias v=nvim
 alias o=xdg-open
+alias yamlgron='yq . -o=json | jq --slurp | gron'
+
+if command -v ggrep >/dev/null 2>&1; then
+  alias grp='ggrep'
+else
+  alias grp='grep'
+fi
 
 codeshot(){
   min_size=${2:-32}
