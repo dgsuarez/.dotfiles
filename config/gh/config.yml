@@ -11,7 +11,7 @@ aliases:
     co: pr checkout
     newpr: |
         !set -e
-        TEMPLATE_FILE=$(mktemp)
+        TEMPLATE_FILE="$(mktemp -d)/template.md"
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
         PR_TEMPLATE_PATH="$PWD/.github/PULL_REQUEST_TEMPLATE.md"
 
