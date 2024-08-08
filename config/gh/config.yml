@@ -10,7 +10,7 @@ pager:
 aliases:
     web: pr view --web
     co: pr checkout
-    newpr: '! ~/.config/gh/newpr.sh $1'
+    newpr: '! ~/.config/gh/newpr.sh "$1"'
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.
