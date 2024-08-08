@@ -4,7 +4,7 @@ set -e
 BODY_FILE="$(mktemp -d)/template.md"
 PR_TEMPLATE_PATH="$PWD/.github/PULL_REQUEST_TEMPLATE.md"
 
-SHORT_NAME=$(git rev-parse --abbrev-ref HEAD | awk -F '-' '{ print toupper($1) "-" (($0 ~ /[0-9]/) ? $2 : "🍅") }')
+SHORT_NAME=$(git rev-parse --abbrev-ref HEAD | awk -F '-' '{ print toupper($1) "-" (($2 ~ /[0-9]/) ? $2 : "🍅") }')
 
 echo "[$SHORT_NAME]" > "$BODY_FILE"
 
