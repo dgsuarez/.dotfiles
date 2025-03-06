@@ -10,6 +10,8 @@ pager:
 aliases:
     web: pr view --web
     co: pr checkout
+    test: '! gh pr comment -b "$GH_TEST_COMMENT"'
+    ping: '! gh pr comment -b "$GH_PING_REVIEWERS_COMMAND"'
     newpr: '! ~/.config/gh/newpr.sh "$1"'
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
