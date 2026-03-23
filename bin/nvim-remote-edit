@@ -1,0 +1,50 @@
+#!/bin/sh
+# Editor wrapper: opens files in an existing nvim running in a sibling tmux pane.
+# Falls back to a regular nvim if not in tmux or no nvim found in the current window.
+# Waits for the buffer to be closed before exiting.
+
+FILE="$1"
+
+if [ -z "$FILE" ]; then
+  exec nvim
+fi
+
+# Make path absolute so nvim resolves it correctly
+case "$FILE" in
+  /*) ;;
+  *) FILE="$(pwd)/$FILE" ;;
+esac
+
+if [ -n "$TMUX" ]; then
+  SESSION=$(tmux display-message -p '#S')
+  SOCK="/tmp/nvim-${SESSION}.sock"
+
+  # Check if there's an nvim process in a sibling pane of the current window
+  MY_PANE=$(tmux display-message -p '#{pane_id}')
+
+  NVIM_PANE=$(tmux list-panes -F '#{pane_id} #{pane_current_command}' \
+    | grep -v "^${MY_PANE} " \
+    | grep -m1 'nvim$' \
+    | cut -d' ' -f1)
+
+  if [ -n "$NVIM_PANE" ] && [ -S "$SOCK" ]; then
+    FIFO=$(mktemp -u /tmp/nvim-remote-edit.XXXXXX)
+    mkfifo "$FIFO"
+
+    # Focus the nvim pane, then open the file and signal via FIFO on close
+    tmux select-pane -t "$NVIM_PANE"
+
+    nvim --server "$SOCK" --remote-expr \
+      "execute('edit $FILE | autocmd BufDelete,BufWipeout,BufUnload <buffer> silent! call writefile([], \"$FIFO\")')" >/dev/null 2>&1
+
+    # Blocks until nvim writes to the FIFO
+    read _ < "$FIFO"
+
+    rm -f "$FIFO"
+
+    tmux select-pane -t "$MY_PANE"
+    exit 0
+  fi
+fi
+
+exec nvim "$FILE"

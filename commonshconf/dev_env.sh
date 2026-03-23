@@ -27,3 +27,8 @@ if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
 fi
 
+DOTFILES_BIN="$HOME/.dotfiles/bin"
+if [ -d "$DOTFILES_BIN" ]; then
+  export PATH="$DOTFILES_BIN:$PATH"
+fi
+
