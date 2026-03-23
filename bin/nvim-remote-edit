@@ -1,19 +1,13 @@
 #!/bin/sh
 # Editor wrapper: opens files in an existing nvim running in a sibling tmux pane.
 # Falls back to a regular nvim if not in tmux or no nvim found in the current window.
-# Waits for the buffer to be closed before exiting.
+# Waits for the buffer to be deleted (:bd) before exiting.
 
 FILE="$1"
 
 if [ -z "$FILE" ]; then
   exec nvim
 fi
-
-# Make path absolute so nvim resolves it correctly
-case "$FILE" in
-  /*) ;;
-  *) FILE="$(pwd)/$FILE" ;;
-esac
 
 if [ -n "$TMUX" ]; then
   SESSION=$(tmux display-message -p '#S')
@@ -27,21 +21,29 @@ if [ -n "$TMUX" ]; then
     | grep -m1 'nvim$' \
     | cut -d' ' -f1)
 
-  if [ -n "$NVIM_PANE" ] && [ -S "$SOCK" ]; then
-    FIFO=$(mktemp -u /tmp/nvim-remote-edit.XXXXXX)
-    mkfifo "$FIFO"
+  # Clean up stale socket if no nvim is running
+  if [ -z "$NVIM_PANE" ] && [ -S "$SOCK" ]; then
+    rm -f "$SOCK"
+  fi
 
-    # Focus the nvim pane, then open the file and signal via FIFO on close
+  if [ -n "$NVIM_PANE" ] && [ -S "$SOCK" ]; then
+    SIGNAL=$(mktemp /tmp/nvim-remote-edit.XXXXXX)
+    rm "$SIGNAL"
+
+    # Focus the nvim pane, then open the file and set up the signal
     tmux select-pane -t "$NVIM_PANE"
 
     nvim --server "$SOCK" --remote-expr \
-      "execute('edit $FILE | autocmd BufDelete,BufWipeout,BufUnload <buffer> silent! call writefile([], \"$FIFO\")')" >/dev/null 2>&1
+      "execute('edit $FILE | autocmd BufDelete,BufUnload <buffer> silent! call writefile([], \"$SIGNAL\")')" >/dev/null 2>&1
 
-    # Blocks until nvim writes to the FIFO
-    read _ < "$FIFO"
+    # Wait for the signal file
+    while [ ! -f "$SIGNAL" ]; do
+      sleep 0.2
+    done
 
-    rm -f "$FIFO"
+    rm -f "$SIGNAL"
 
+    # Focus back to the claude pane
     tmux select-pane -t "$MY_PANE"
     exit 0
   fi
