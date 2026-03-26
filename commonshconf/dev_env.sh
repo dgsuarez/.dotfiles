@@ -6,10 +6,8 @@ if [ -d "$HOME/buildkit" ]; then
   export PATH="$HOME/buildkit/bin:$PATH"
 fi
 
-if [ -d "$HOME/.nvm" ]; then
-  export NPM_TOKEN= # If this is set using direnv for some folder it won't be there at shell start and nvm will raise an error
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd)"
 fi
 
 if [ -d "$HOME/.rbenv" ]; then

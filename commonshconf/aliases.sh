@@ -31,9 +31,7 @@ mux(){
   if [ -f .tmuxinator.yml ]; then
     RBENV_VERSION="$rbenv_version" tmuxinator local
   else
-    project=`[[ -f Procfile ]] && echo procfile || echo nvim`
-
-    RBENV_VERSION="$rbenv_version" tmuxinator s "$project" -n "$session_name"
+    RBENV_VERSION="$rbenv_version" tmuxinator s nvim -n "$session_name"
   fi
 }
 
