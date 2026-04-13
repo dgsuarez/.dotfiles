@@ -3,7 +3,7 @@ alias reown='sudo chown -R $USER:$USER'
 alias serve='python3 -m http.server'
 alias fserve='python -m pyftpdlib -w'
 alias v=nvim
-alias o=xdg-open
+alias o=open
 alias yamlgron='yq . -o=json | jq --slurp | gron'
 
 if command -v ggrep >/dev/null 2>&1; then
@@ -55,10 +55,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-
-if [ "$TERM" = "xterm-kitty" ]; then
-  alias ssh="kitty +kitten ssh"
-fi
 
 # some more ls aliases
 alias ll='ls -alhF'
