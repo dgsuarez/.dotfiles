@@ -35,6 +35,35 @@ mux(){
   fi
 }
 
+claux(){
+  if [ -n "$1" ]; then
+    # New worktree from project root
+    project=$(basename "$PWD" | sed 's/\./_/g')
+    echo -ne "\033]0;${project}@${1}\007"
+    claude -w "$1" --tmux=classic
+    return
+  fi
+
+  # No args: must be inside a worktree
+  wt_match=$(echo "$PWD" | grep -o '.*/.claude/worktrees/[^/]*')
+  if [ -z "$wt_match" ]; then
+    echo "Usage: claux <name> (from project root) or claux (from inside a worktree)" >&2
+    return 1
+  fi
+
+  name=$(basename "$wt_match")
+  project_dir=$(echo "$wt_match" | sed 's|/.claude/worktrees/.*||')
+  project=$(basename "$project_dir" | sed 's/\./_/g')
+  session="${project}_worktree-${name}"
+  echo -ne "\033]0;${project}@${name}\007"
+
+  if tmux has-session -t "$session" 2>/dev/null; then
+    tmux attach -t "$session"
+  else
+    claude -r --tmux=classic
+  fi
+}
+
 local_tunnel(){
   local_port=${3:-"1$2"}
   autossh -N "$1" -L "$local_port":localhost:"$2"
