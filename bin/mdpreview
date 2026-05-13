@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+src="${1:?usage: mdpreview <markdown-file>}"
+abs="$(cd "$(dirname "$src")" && pwd)/$(basename "$src")"
+hash="$(printf '%s' "$abs" | shasum | cut -c1-12)"
+out="/tmp/mdpreview-${hash}.html"
+url="file://${out}"
+
+style="$(dirname "$0")/mdpreview-style.html"
+pandoc "$src" -s --metadata title="$(basename "$src")" -H "$style" -o "$out"
+
+osascript <<EOF
+tell application "Google Chrome"
+  set theURL to "$url"
+  set found to false
+  repeat with w in windows
+    set i to 0
+    repeat with t in tabs of w
+      set i to i + 1
+      if URL of t starts with theURL then
+        set active tab index of w to i
+        tell t to reload
+        set index of w to 1
+        set found to true
+        exit repeat
+      end if
+    end repeat
+    if found then exit repeat
+  end repeat
+  if not found then
+    if (count of windows) = 0 then
+      make new window
+      set URL of active tab of front window to theURL
+    else
+      tell front window to make new tab with properties {URL:theURL}
+    end if
+  end if
+  activate
+end tell
+EOF
