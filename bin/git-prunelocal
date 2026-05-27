@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for branch in $(git gone); do
+  worktree=$(git worktree list --porcelain \
+    | awk -v b="refs/heads/$branch" '
+        /^worktree /  { w = $2 }
+        $1 == "branch" && $2 == b { print w; exit }
+      ')
+
+  if [ -n "$worktree" ]; then
+    git worktree remove --force "$worktree"
+  fi
+
+  git branch -D "$branch"
+done
