@@ -12,5 +12,9 @@ tags
 tags.lock
 tags.temp
 tags.files
-.claude/*
+# Claude Code: ignore personal & runtime artifacts in every repo.
+# Team config (settings.json, skills/, commands/, agents/, hooks/) is intentionally committable.
+.claude/settings.local.json
+.claude/worktrees/
+.claude/*.lock
 .playwright-mcp/
