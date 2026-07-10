@@ -20,3 +20,4 @@ if [ -d "$DOTFILES_BIN" ]; then
   export PATH="$DOTFILES_BIN:$PATH"
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
