@@ -23,15 +23,21 @@ killport(){
 }
 
 mux(){
-  rbenv_version=`hash rbenv 2>/dev/null && rbenv global`
   session_name=`basename "$PWD" | sed 's/\./_/g'`
 
   echo -ne "\033]0;${session_name}\007"
 
-  if [ -f .tmuxinator.yml ]; then
-    RBENV_VERSION="$rbenv_version" tmuxinator local
+  if ! tmux has-session -t "=$session_name" 2>/dev/null; then
+    tmux new-session -d -s "$session_name" -n nvim
+    # send-keys rather than a session command, so quitting nvim leaves the shell open
+    tmux send-keys -t "=$session_name:nvim" nvim Enter
+    tmux split-window -h -d -t "=$session_name:nvim" -c "$PWD"
+  fi
+
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t "=$session_name"
   else
-    RBENV_VERSION="$rbenv_version" tmuxinator s nvim -n "$session_name"
+    tmux attach -t "=$session_name"
   fi
 }
 
