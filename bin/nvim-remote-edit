@@ -3,10 +3,16 @@
 # Falls back to a regular nvim if not in tmux or no nvim found in the current window.
 # Waits for the buffer to be deleted (:bd) before exiting.
 
-FILE="$1"
+# Claude Code passes a `+<line>` cursor argument before the file
+for arg in "$@"; do
+  case "$arg" in
+    +*) CMD="$arg" ;;
+    *) FILE="$arg" ;;
+  esac
+done
 
 if [ -z "$FILE" ]; then
-  exec nvim
+  exec nvim "$@"
 fi
 
 if [ -n "$TMUX" ]; then
@@ -34,7 +40,7 @@ if [ -n "$TMUX" ]; then
     tmux select-pane -t "$NVIM_PANE"
 
     nvim --server "$SOCK" --remote-expr \
-      "execute('edit $FILE | autocmd BufDelete,BufUnload <buffer> silent! call writefile([], \"$SIGNAL\")')" >/dev/null 2>&1
+      "execute('edit $CMD $FILE | autocmd BufDelete,BufUnload <buffer> silent! call writefile([], \"$SIGNAL\")')" >/dev/null 2>&1
 
     # Wait for the signal file
     while [ ! -f "$SIGNAL" ]; do
@@ -49,4 +55,4 @@ if [ -n "$TMUX" ]; then
   fi
 fi
 
-exec nvim "$FILE"
+exec nvim "$@"
