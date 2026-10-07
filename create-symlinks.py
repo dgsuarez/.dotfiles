@@ -30,7 +30,7 @@ def makelinks(path = "."):
 
     for fname in listdir(path):
         # skip this script and files starting with a dot
-        if fname == normpath(__file__) or fname[0] == '.':
+        if fname == basename(__file__) or fname[0] == '.':
             print("skipping %s" % fname)
             continue
 

@@ -2,13 +2,13 @@
 	name = Diego Guerra
 	email = diego.guerra.suarez@gmail.com
 [alias]
-	l = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	gl = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
+	l = log --color --pretty=mine --abbrev-commit
+	gl = log --color --pretty=mine --abbrev-commit --graph
 	s = status -s
   co = checkout
   ci = commit
-  o = log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit @{u}..
-  in = !git fetch && git log --color --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ..@{u}
+  o = log --color --pretty=mine --abbrev-commit @{u}..
+  in = !git fetch && git log --color --pretty=mine --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
   gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
   pullprune = "!git pull --prune && git prunelocal"
@@ -19,6 +19,8 @@
 	fu = ci -a --fixup=HEAD
 	fixup = ci --fixup=HEAD
 
+[pretty]
+	mine = tformat:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
 [color]
 	ui = true
 [core]
