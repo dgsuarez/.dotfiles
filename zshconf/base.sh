@@ -7,7 +7,10 @@ typeset -U PATH path
 # HISTORY
 ##########
 
-HISTFILE=$HOME/.zsh_history
+# Off the default path: shells that skip this file fall back to /etc/zshrc's SAVEHIST=1000
+# and would truncate a shared ~/.zsh_history
+HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
 HISTSIZE=50000
 SAVEHIST=50000
 
