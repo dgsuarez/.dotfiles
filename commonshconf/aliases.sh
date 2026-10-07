@@ -1,7 +1,5 @@
 alias n2z="tr '\n' '\0'"
-alias reown='sudo chown -R $USER:$USER'
 alias serve='python3 -m http.server'
-alias fserve='python -m pyftpdlib -w'
 alias v=nvim
 alias o=open
 alias yamlgron='yq . -o=json | jq --slurp | gron'
@@ -11,12 +9,6 @@ if command -v ggrep >/dev/null 2>&1; then
 else
   alias grp='grep'
 fi
-
-codeshot(){
-  min_size=${2:-32}
-  style=${3:-trac}
-  pygmentize -O full,style="$style",font_size="$min_size",line_numbers=False -f png $1 | xclip -selection clipboard -t image/png
-}
 
 killport(){
   sudo lsof -i :"$1" | awk '/LISTEN/ { print $2}' | xargs -r kill
@@ -78,8 +70,6 @@ local_tunnel(){
 togif() {
   ffmpeg -i "$1" "$1.gif"
 }
-
-alias htmlizecode='pygmentize -O full,style=trac -f html'
 
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
