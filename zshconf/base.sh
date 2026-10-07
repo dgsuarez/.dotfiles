@@ -1,4 +1,7 @@
 unsetopt beep
+setopt INTERACTIVE_COMMENTS
+
+setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
 
 # Nested shells and tmux panes re-source dev_env.sh, which prepends to PATH again
 typeset -U PATH path
@@ -34,3 +37,24 @@ setopt HIST_SAVE_NO_DUPS
 
 # Share history between all sessions:
 setopt SHARE_HISTORY
+
+# Show !! / !$ expansions for review instead of running them
+setopt HIST_VERIFY
+
+setopt HIST_REDUCE_BLANKS
+
+##########
+# LINE EDITOR
+##########
+
+autoload -Uz edit-command-line up-line-or-beginning-search down-line-or-beginning-search
+zle -N edit-command-line
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey '^X^E' edit-command-line
+# Normal and application cursor modes send different sequences for the arrows
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search

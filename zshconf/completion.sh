@@ -14,5 +14,5 @@ else
   compinit -C
 fi
 zstyle ':completion:*' special-dirs true
-
-
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select

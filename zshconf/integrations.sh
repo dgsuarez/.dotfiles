@@ -6,3 +6,7 @@ if [ -f '/Users/diego/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/die
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
+
+if [ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+  source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
