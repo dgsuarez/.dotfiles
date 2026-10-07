@@ -5,24 +5,22 @@
 	l = log --color --pretty=mine --abbrev-commit
 	gl = log --color --pretty=mine --abbrev-commit --graph
 	s = status -s
-  co = checkout
-  ci = commit
-  o = log --color --pretty=mine --abbrev-commit @{u}..
-  in = !git fetch && git log --color --pretty=mine --abbrev-commit ..@{u}
+	co = checkout
+	ci = commit
+	o = log --color --pretty=mine --abbrev-commit @{u}..
+	in = !git fetch && git log --color --pretty=mine --abbrev-commit ..@{u}
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
-  gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
-  pullprune = "!git pull --prune && git prunelocal"
-  pp = "!git pullprune"
-  hiff = diff HEAD
-  publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
-  fzfco = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
+	gone = !"LANG=en git branch --format='%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' | grep ."
+	pullprune = "!git pull --prune && git prunelocal"
+	pp = "!git pullprune"
+	hiff = diff HEAD
+	publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+	fzfco = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
 	fu = ci -a --fixup=HEAD
 	fixup = ci --fixup=HEAD
 
 [pretty]
 	mine = tformat:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
-[color]
-	ui = true
 [core]
 	pager =
 	excludesfile = ~/.gitignore_global
@@ -33,10 +31,13 @@
 	autosquash = true
 	autoStash = true
 [push]
-	default = simple
-
-[includeIf "gitdir:~/toptal/**"]
-	path=~/toptal/.gitconfig
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[branch]
+	sort = -committerdate
+[diff]
+	algorithm = histogram
 [merge]
 	tool = diffconflicts
 [mergetool "diffconflicts"]
@@ -45,4 +46,8 @@
 [mergetool]
 	keepBackup = false
 [rerere]
-  enabled = true
+	enabled = true
+
+# Last, so the work identity overrides [user] above
+[includeIf "gitdir:~/toptal/**"]
+	path = ~/toptal/.gitconfig

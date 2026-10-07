@@ -20,9 +20,6 @@ SAVEHIST=50000
 # Record timestamp in history:
 setopt EXTENDED_HISTORY
 
-# Expire duplicate entries first when trimming history:
-setopt HIST_EXPIRE_DUPS_FIRST
-
 # Delete old recorded entry if new entry is a duplicate:
 setopt HIST_IGNORE_ALL_DUPS
 
