@@ -55,10 +55,12 @@ claux(){
   session="${project}_worktree-${name}"
   echo -ne "\033]0;${project}@${name}\007"
 
-  if tmux has-session -t "$session" 2>/dev/null; then
-    tmux attach -t "$session"
-  else
+  if ! tmux has-session -t "=$session" 2>/dev/null; then
     claude -r --tmux=classic
+  elif [ -n "$TMUX" ]; then
+    tmux switch-client -t "=$session"
+  else
+    tmux attach -t "=$session"
   fi
 }
 
